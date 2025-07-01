@@ -45,6 +45,8 @@ fn merge(result: &mut [u32], left: &[u32], right: &[u32]) {
 
 */
 
+use crate::merge_sort;
+
 pub fn merge_sort(array: &mut [u32]) {
     let length = array.len();
 
@@ -61,5 +63,12 @@ pub fn merge_sort(array: &mut [u32]) {
     merge_sort(&mut left);
     merge_sort(&mut right);
 
-    fn merge(merged_array: &mut [u32], left: &mut [u32], right: &mut [u32]) {}
+    fn merge(merged_array: &mut [u32], left: &mut [u32], right: &mut [u32]) {
+        let left_length = left.len();
+        let right_length = right.len();
+
+        let mut l: usize;
+        let mut r: usize;
+        let mut m: usize;
+    }
 }
