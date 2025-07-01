@@ -1,5 +1,3 @@
-use std::time::{Duration, Instant};
-
 pub fn insertion_sort(array: &mut [u32]) {
     let length = array.len();
 

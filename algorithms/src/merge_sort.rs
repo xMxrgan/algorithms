@@ -1,74 +1,57 @@
-/*
-
-pub fn merge_sort(arr: &mut [u32]) {
-    // Calcola la lunghezza dell'array
-    // Se l'array ha un solo elemento o è vuoto, è già ordinato
-
-    // Calcola l'indice centrale per dividere l'array in due metà
-
-    // Crea due sottovettori copiando gli elementi della prima e della seconda metà
-    // Prima metà
-    // Seconda metà
-
-    // Stampa le due metà per scopi di debug
-
-    // Ordina ricorsivamente la prima metà
-    // Ordina ricorsivamente la seconda metà
-
-    // Unisce le due metà ordinate nell'array originale
-}
-
-fn merge(result: &mut [u32], left: &[u32], right: &[u32]) {
-    // Inizializza gli indici per scorrere i tre array
-    // Indice per il sottovettore sinistro (left)
-    // Indice per il sottovettore destro (right)
-    // Indice per l'array risultante (result)
-
-    // Confronta gli elementi di left e right finché entrambi hanno elementi
-    // Se l'elemento corrente di left è minore o uguale a quello di right,
-    // copialo nell'array risultante
-    // Passa all'elemento successivo in left
-    // Altrimenti, copia l'elemento corrente di right nell'array risultante
-    // Passa all'elemento successivo in right
-    // Passa alla posizione successiva in result
-
-    // Copia gli elementi rimanenti di left (se ce ne sono) nell'array risultante
-
-    // Passa all'elemento successivo in left
-    // Passa alla posizione successiva in result
-
-    // Copia gli elementi rimanenti di right (se ce ne sono) nell'array risultante
-
-    // Passa all'elemento successivo in right
-    // Passa alla posizione successiva in result
-}
-
-*/
-
-use crate::merge_sort;
-
 pub fn merge_sort(array: &mut [u32]) {
     let length = array.len();
 
+    // Se l'array ha un solo elemento o è vuoto, è già ordinato
     if length <= 1 {
         return;
     }
 
+    // Calcola l'indice centrale per dividere l'array in due metà
     let mid = length / 2;
 
-    let (mut left, mut right) = array.split_at_mut(mid);
+    // Divide l'array in due metà mutabili
+    let (left, right) = array.split_at_mut(mid);
 
-    println!("Left:{:?} – Right:{:?}", left, right);
+    // Ordina ricorsivamente le due metà
+    merge_sort(left);
+    merge_sort(right);
 
-    merge_sort(&mut left);
-    merge_sort(&mut right);
+    // Crea un nuovo array per contenere i dati uniti
+    let mut merged = vec![0; length];
+    merge(&mut merged, left, right);
 
-    fn merge(merged_array: &mut [u32], left: &mut [u32], right: &mut [u32]) {
-        let left_length = left.len();
-        let right_length = right.len();
+    // Copia il risultato unito nell'array originale
+    array.copy_from_slice(&merged);
 
-        let mut l: usize;
-        let mut r: usize;
-        let mut m: usize;
+    // Stampa lo stato dell'array ordinato a questo livello di ricorsione
+    println!("{:?}", array);
+}
+
+fn merge(result: &mut [u32], left: &[u32], right: &[u32]) {
+    let mut l = 0;
+    let mut r = 0;
+    let mut m = 0;
+
+    while l < left.len() && r < right.len() {
+        if left[l] <= right[r] {
+            result[m] = left[l];
+            l += 1;
+        } else {
+            result[m] = right[r];
+            r += 1;
+        }
+        m += 1;
+    }
+
+    while l < left.len() {
+        result[m] = left[l];
+        l += 1;
+        m += 1;
+    }
+
+    while r < right.len() {
+        result[m] = right[r];
+        r += 1;
+        m += 1;
     }
 }
