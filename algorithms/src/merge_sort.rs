@@ -46,5 +46,20 @@ fn merge(result: &mut [u32], left: &[u32], right: &[u32]) {
 */
 
 pub fn merge_sort(array: &mut [u32]) {
-    let length = array.iter().len();
+    let length = array.len();
+
+    if length <= 1 {
+        return;
+    }
+
+    let mid = length / 2;
+
+    let (mut left, mut right) = array.split_at_mut(mid);
+
+    println!("Left:{:?} – Right:{:?}", left, right);
+
+    merge_sort(&mut left);
+    merge_sort(&mut right);
+
+    fn merge(merged_array: &mut [u32], left: &mut [u32], right: &mut [u32]) {}
 }
